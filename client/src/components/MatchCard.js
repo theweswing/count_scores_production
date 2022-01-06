@@ -20,7 +20,6 @@ const MatchCard = ({ date, players, user }) => {
         setPlayerWinner(true);
       }
     });
-    console.log(`${date}: Is winner: ${playerWinner}`);
   };
 
   useEffect(() => {

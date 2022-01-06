@@ -25,8 +25,7 @@ const GameCard = ({ user, game, setSelectedGame }) => {
     )
       .then((res) => res.json())
       .then((matchData) => {
-        console.log(matchData)
-        console.log(obtainAnalytics(matchData))
+        obtainAnalytics(matchData)
         ;
       });
   }, []);

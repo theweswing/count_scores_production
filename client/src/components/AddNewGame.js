@@ -184,8 +184,7 @@ const AddNewGame = ({ user }) => {
     setAllPlayerEmails(playerEmails);
     let playerEntries = [...allPlayers];
     playerEntries[indexValue].email = e.target.value;
-    setAllPlayers(playerEntries)
-    console.log(allPlayerEmails);
+    setAllPlayers(playerEntries);
   };
 
   const handlePlayerWin = (e) => {
@@ -193,7 +192,6 @@ const AddNewGame = ({ user }) => {
     let playerEntries = [...allPlayers];
     playerEntries[indexValue].is_winner = !playerEntries[indexValue].is_winner
     setAllPlayers(playerEntries)
-    console.log(playerEntries)
   }
 
   const comparePlayerEmails = () => {
@@ -226,7 +224,7 @@ const AddNewGame = ({ user }) => {
       },
     ]);
     setAllPlayerEmails([...allPlayerEmails, ""]);
-    console.log(allPlayers);
+    
   };
 
   const removePlayer = (e) => {
