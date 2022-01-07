@@ -9,7 +9,7 @@ import GameContainer from "./GameContainer";
 import AddNewGame from "./AddNewGame";
 import Header from "./Header";
 
-const Home = ({ user }) => {
+const Home = ({ user, setUser }) => {
   const [userGames, setUserGames] = useState([]);
   const [clickFind, setClickFind] = useState(true);
   const [addNew, setAddNew] = useState(true);
@@ -18,7 +18,7 @@ const Home = ({ user }) => {
     fetch(`/users/${user.id}/games`)
       .then((res) => res.json())
       .then((gameData) => {
-        let sortedGames = gameData.sort((a,b) => (a.name > b.name) ? 1 : -1)
+        let sortedGames = gameData.sort((a, b) => (a.name > b.name ? 1 : -1));
         setUserGames(sortedGames);
         setClickFind((clickFind) => !clickFind);
       });
@@ -30,7 +30,7 @@ const Home = ({ user }) => {
 
   return (
     <div>
-      <Header />
+      <Header setUser={setUser} />
       {clickFind && addNew ? (
         <div>
           <Box container noValidate sx={{ mt: 3 }}>

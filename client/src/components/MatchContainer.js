@@ -5,9 +5,7 @@ const MatchContainer = ({ selectedGame, user }) => {
   const [matchData, setMatchData] = useState([]);
 
   useEffect(() => {
-    fetch(
-      `/users/${user.id}/games/${selectedGame.id}/matches`
-    )
+    fetch(`/users/${user.id}/games/${selectedGame.id}/matches`)
       .then((res) => res.json())
       .then((matchData) => {
         setMatchData(matchData);

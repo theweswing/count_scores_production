@@ -1,4 +1,4 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -14,8 +14,8 @@ const App = () => {
     fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((foundUser) => {
-        setUser(foundUser)}
-          );
+          setUser(foundUser);
+        });
       }
     });
   }, []);
@@ -23,16 +23,15 @@ const App = () => {
   if (user) {
     return (
       <div className="app">
-        <Home user={user} />
         <Switch>
-          <Route exact path="/home">
-            <Home />
-          </Route>
           <Route exact path="/games">
             <GamesContainer />
           </Route>
-          <Route exact path="/matches">
+          <Route exact path="/addnew">
             <MatchContainer />
+          </Route>
+          <Route exact path="/">
+            <Home setUser={setUser} user={user} />
           </Route>
         </Switch>
       </div>

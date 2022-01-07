@@ -6,6 +6,7 @@ const GameContainer = ({ user, userGames }) => {
   const [selectedGame, setSelectedGame] = useState("");
 
   let game_ids = [];
+
   const mapGames = userGames.map((game) => {
     if (game_ids.includes(game.id) === false) {
       game_ids.push(game.id);

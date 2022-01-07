@@ -5,8 +5,19 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ setUser }) => {
+  const handleLogout = () => {
+    setUser(null);
+    fetch("/logout", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -21,19 +32,30 @@ const Header = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              My Games
-            </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Add New Game
-            </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              My Stats
-            </Button>
+            {/* <Link to="/games">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                My Games
+              </Button>
+            </Link> */}
+
+            {/* <Link to="/addnew">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Add New Game
+              </Button>
+            </Link> */}
+
+            <Link to="/">
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                Home
+              </Button>
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
+            <Button
+              sx={{ my: 2, color: "white", display: "block" }}
+              onClick={handleLogout}
+            >
               Logout
             </Button>
           </Box>
