@@ -34,6 +34,10 @@ const AddNewGame = ({ user }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleGameInput(gameInput);
+    ;
+  };
+
+  const handleFormReset = () => {
     setGameInput("");
     setDateInput("");
     setNewMatch({
@@ -51,8 +55,7 @@ const AddNewGame = ({ user }) => {
       },
     ]);
     setAllPlayerEmails([user.email]);
-    e.target.reset();
-  };
+  }
 
   const handleMatch = (game) => {
     let newMatchEntry = { ...newMatch, game_id: game.id, date: dateInput };
@@ -77,14 +80,24 @@ const AddNewGame = ({ user }) => {
   const handlePlayerSubmit = (match) => {
     comparePlayerEmails();
     let playersForEntry = [...allPlayers];
+    let ceiling = playersForEntry.length
+    let counter = 1
     let playerEntries = playersForEntry.map((givenPlayer) => {
       givenPlayer.match_id = match.id;
+      let preparedEntry = {
+        user_id: givenPlayer.user_id,
+        match_id: givenPlayer.match_id,
+        score: givenPlayer.score,
+        is_winner: givenPlayer.is_winner,
+        name: givenPlayer.name
+      }
+      console.log(JSON.stringify(preparedEntry,null,4))
       fetch("/players", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(givenPlayer),
+        body: JSON.stringify(preparedEntry),
       }).then((res) => {
         if (res.ok) {
           res.json().then((playerinDB) => {
@@ -95,8 +108,12 @@ const AddNewGame = ({ user }) => {
         } else {
           res
             .json()
-            .then((errors) => console.log(`${givenPlayer.name} : ${errors}`));
+            .then((errors) => console.log(`${preparedEntry.name} : ${errors}`));
         }
+        if (counter = ceiling){
+          handleFormReset()
+        }
+        counter = counter + 1
       });
     });
     
