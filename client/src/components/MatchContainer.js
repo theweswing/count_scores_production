@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import MatchCard from "./MatchCard";
+import { Button, Box, Grid, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const MatchContainer = ({ selectedGame, user }) => {
+const MatchContainer = ({ setSelectedGame, selectedGame, user }) => {
   const [matchData, setMatchData] = useState([]);
 
   useEffect(() => {
@@ -24,7 +26,30 @@ const MatchContainer = ({ selectedGame, user }) => {
     );
   });
 
-  return <div>{mapMatches}</div>;
+  return (
+    <Box
+      container
+      noValidate
+      sx={{ mt: 3 }}
+      style={{ justifyContent: "center" }}
+    >
+      <Grid align="left" sx={{ ml: 5 }}>
+        <Button
+          startIcon={<ArrowBackIcon />}
+          onClick={() => setSelectedGame("")}
+        >
+          Back
+        </Button>
+      </Grid>
+
+      <Grid item xs={12} sx={{ mt: 3 }} align="center">
+        <Typography component="h1" variant="h4">
+          {selectedGame.name}
+        </Typography>
+        {mapMatches}
+      </Grid>
+    </Box>
+  );
 };
 
 export default MatchContainer;

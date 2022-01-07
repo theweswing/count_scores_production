@@ -1,8 +1,10 @@
 import { useState } from "react";
 import GameCard from "./GameCard";
 import MatchContainer from "./MatchContainer";
+import { Button, Box, Grid } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const GameContainer = ({ user, userGames }) => {
+const GameContainer = ({ user, userGames, setClickFind }) => {
   const [selectedGame, setSelectedGame] = useState("");
 
   let game_ids = [];
@@ -23,9 +25,34 @@ const GameContainer = ({ user, userGames }) => {
   });
 
   if (selectedGame == "") {
-    return <div>{mapGames}</div>;
+    return (
+      <Box
+        container
+        noValidate
+        sx={{ mt: 3 }}
+        style={{ justifyContent: "center" }}
+      >
+        <Grid align="left" sx={{ ml: 5 }}>
+          <Button
+            startIcon={<ArrowBackIcon />}
+            onClick={() => setClickFind(true)}
+          >
+            Back
+          </Button>
+        </Grid>
+        <Grid item xs={12} sx={{ mt: 3 }} align="center">
+          {mapGames}
+        </Grid>
+      </Box>
+    );
   } else {
-    return <MatchContainer selectedGame={selectedGame} user={user} />;
+    return (
+      <MatchContainer
+        selectedGame={selectedGame}
+        user={user}
+        setSelectedGame={setSelectedGame}
+      />
+    );
   }
 };
 

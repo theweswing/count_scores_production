@@ -10,7 +10,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const AddNewGame = ({ user }) => {
+const AddNewGame = ({ user, setAddNew }) => {
   const [allGames, setAllGames] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [gameInput, setGameInput] = useState("");
@@ -26,7 +26,7 @@ const AddNewGame = ({ user }) => {
       score: null,
       is_winner: false,
       name: `${user.first_name} ${user.last_name}`,
-      email: ""
+      email: "",
     },
   ]);
   const [allPlayerEmails, setAllPlayerEmails] = useState([user.email]);
@@ -34,7 +34,6 @@ const AddNewGame = ({ user }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleGameInput(gameInput);
-    ;
   };
 
   const handleFormReset = () => {
@@ -51,11 +50,11 @@ const AddNewGame = ({ user }) => {
         score: null,
         is_winner: false,
         name: `${user.first_name} ${user.last_name}`,
-        email: user.email
+        email: user.email,
       },
     ]);
     setAllPlayerEmails([user.email]);
-  }
+  };
 
   const handleMatch = (game) => {
     let newMatchEntry = { ...newMatch, game_id: game.id, date: dateInput };
@@ -80,8 +79,8 @@ const AddNewGame = ({ user }) => {
   const handlePlayerSubmit = (match) => {
     comparePlayerEmails();
     let playersForEntry = [...allPlayers];
-    let ceiling = playersForEntry.length
-    let counter = 1
+    let ceiling = playersForEntry.length;
+    let counter = 1;
     let playerEntries = playersForEntry.map((givenPlayer) => {
       givenPlayer.match_id = match.id;
       let preparedEntry = {
@@ -89,9 +88,9 @@ const AddNewGame = ({ user }) => {
         match_id: givenPlayer.match_id,
         score: givenPlayer.score,
         is_winner: givenPlayer.is_winner,
-        name: givenPlayer.name
-      }
-      console.log(JSON.stringify(preparedEntry,null,4))
+        name: givenPlayer.name,
+      };
+      console.log(JSON.stringify(preparedEntry, null, 4));
       fetch("/players", {
         method: "POST",
         headers: {
@@ -110,13 +109,12 @@ const AddNewGame = ({ user }) => {
             .json()
             .then((errors) => console.log(`${preparedEntry.name} : ${errors}`));
         }
-        if (counter = ceiling){
-          handleFormReset()
+        if ((counter = ceiling)) {
+          handleFormReset();
         }
-        counter = counter + 1
+        counter = counter + 1;
       });
     });
-    
   };
 
   const handleGameInput = (input) => {
@@ -207,9 +205,9 @@ const AddNewGame = ({ user }) => {
   const handlePlayerWin = (e) => {
     const indexValue = parseInt(e.target.name);
     let playerEntries = [...allPlayers];
-    playerEntries[indexValue].is_winner = !playerEntries[indexValue].is_winner
-    setAllPlayers(playerEntries)
-  }
+    playerEntries[indexValue].is_winner = !playerEntries[indexValue].is_winner;
+    setAllPlayers(playerEntries);
+  };
 
   const comparePlayerEmails = () => {
     let counter = 0;
@@ -220,12 +218,16 @@ const AddNewGame = ({ user }) => {
         let databaseEmail = givenUser.email;
         if (emailComparison === databaseEmail.toLowerCase()) {
           playerList[counter].user_id = givenUser.id;
-          playerList[counter].email = givenUser.email
-          playerList[counter].name = `${givenUser.first_name} ${givenUser.last_name}`
+          playerList[counter].email = givenUser.email;
+          playerList[
+            counter
+          ].name = `${givenUser.first_name} ${givenUser.last_name}`;
           console.log(`User Found for ${databaseEmail} at id ${givenUser.id}`);
           setAllPlayers(playerList);
-        }});
-      counter += 1;});
+        }
+      });
+      counter += 1;
+    });
   };
 
   const addPlayer = (e) => {
@@ -237,11 +239,10 @@ const AddNewGame = ({ user }) => {
         score: null,
         is_winner: false,
         name: "",
-        email: ""
+        email: "",
       },
     ]);
     setAllPlayerEmails([...allPlayerEmails, ""]);
-    
   };
 
   const removePlayer = (e) => {
@@ -253,9 +254,9 @@ const AddNewGame = ({ user }) => {
   const spawnPlayers = () => {
     let counter = 0;
     const displayedPlayers = [...allPlayers].map((givenPlayer) => {
-        counter = counter + 1;
+      counter = counter + 1;
       return (
-        <div key={`player${counter}tracker`}>
+        <Grid item xs={12} key={`player${counter}tracker`}>
           <Grid item xs={12}>
             <TextField
               required
@@ -268,19 +269,21 @@ const AddNewGame = ({ user }) => {
             />
           </Grid>
 
-          <Grid item xs={12} key={`player${counter}email`}>
+          <Grid key={`player${counter}email`}>
             <TextField
+              sx={{ mt: 1 }}
               fullWidth
               autoComplete={`player${counter}email`}
               id={`player${counter}email`}
-              label={`Player ${counter} Email (Link score to a friend's account!)`}
+              label={`Player ${counter} Email (link score to a friend's account!)`}
               name={`${counter - 1}`}
               onChange={handlePlayerEmail}
             />
           </Grid>
 
-          <Grid item xs={12} key={`player${counter}score`}>
+          <Grid key={`player${counter}score`}>
             <TextField
+              sx={{ mt: 1 }}
               fullWidth
               autoComplete={`player${counter}score`}
               id={`player${counter}score`}
@@ -289,12 +292,19 @@ const AddNewGame = ({ user }) => {
               onChange={handlePlayerScore}
             />
           </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel key={`player${counter}wins`} onClick={handlePlayerWin}name={`${counter - 1}`}control={<Checkbox />} label={`👑  Player ${counter} Wins 👑`} />
+
+          <Grid>
+            <FormControlLabel
+              key={`player${counter}wins`}
+              onClick={handlePlayerWin}
+              name={`${counter - 1}`}
+              control={<Checkbox />}
+              label={`👑  Player ${counter} Wins 👑`}
+            />
           </Grid>
-        </div>
+        </Grid>
       );
-      });
+    });
     return displayedPlayers;
   };
 
@@ -312,7 +322,7 @@ const AddNewGame = ({ user }) => {
             }}
             onSubmit={handleSubmit}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h4">
               Add New Game
             </Typography>
 
@@ -330,6 +340,7 @@ const AddNewGame = ({ user }) => {
                     onChange={(e) => setGameInput(e.target.value)}
                   />
                 </Grid>
+
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
@@ -341,9 +352,10 @@ const AddNewGame = ({ user }) => {
                     onChange={(e) => setDateInput(e.target.value)}
                   />
                 </Grid>
+
                 {spawnPlayers()}
 
-                <Grid item xs={6}>
+                <Grid item xs={6} align="center">
                   <Button
                     size="small"
                     variant="contained"
@@ -354,7 +366,7 @@ const AddNewGame = ({ user }) => {
                   </Button>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={6} align="center">
                   <Button
                     size="small"
                     variant="contained"
@@ -372,6 +384,15 @@ const AddNewGame = ({ user }) => {
                   sx={{ mt: 3, mb: 2 }}
                 >
                   Add New Game
+                </Button>
+                <Button
+                  fullWidth
+                  color="error"
+                  variant="contained"
+                  sx={{ mb: 2 }}
+                  onClick={() => setAddNew(true)}
+                >
+                  Cancel
                 </Button>
               </Grid>
             </Box>

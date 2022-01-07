@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const Header = ({ setUser }) => {
+const Header = ({ setUser, setClickFind, setAddNew }) => {
   const handleLogout = () => {
     setUser(null);
     fetch("/logout", {
@@ -16,6 +16,11 @@ const Header = ({ setUser }) => {
         "Content-Type": "application/json",
       },
     });
+  };
+
+  const goHome = () => {
+    setClickFind(true);
+    setAddNew(true);
   };
 
   return (
@@ -27,6 +32,7 @@ const Header = ({ setUser }) => {
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            onClick={goHome}
           >
             Score Counter
           </Typography>
@@ -45,7 +51,10 @@ const Header = ({ setUser }) => {
             </Link> */}
 
             <Link to="/">
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                onClick={goHome}
+              >
                 Home
               </Button>
             </Link>

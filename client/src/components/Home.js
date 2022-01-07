@@ -30,35 +30,40 @@ const Home = ({ user, setUser }) => {
 
   return (
     <div>
-      <Header setUser={setUser} />
+      <Header
+        setUser={setUser}
+        setClickFind={setClickFind}
+        setAddNew={setAddNew}
+      />
+
       {clickFind && addNew ? (
         <div>
-          <Box container noValidate sx={{ mt: 3 }}>
-            <Grid item xs={12} sx={{ mt: 3 }}>
+          <Box container noValidate sx={{ mt: 3 }} style={{ display: "flex" }}>
+            <Grid item xs={12} sx={{ mt: 3, mr: 5 }} align="right">
               <Card sx={{ maxWidth: 275 }}>
-                <CardContent align="center">
+                <CardContent align="center" sx={{ mt: 3 }}>
                   <Typography variant="h5" component="div">
-                    View Games
+                    My Games
                   </Typography>
                 </CardContent>
                 <CardContent align="center">
                   <Button size="small" align="right" onClick={handleFindGames}>
-                    Select games
+                    View
                   </Button>
                 </CardContent>
               </Card>
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 3 }}>
+            <Grid item xs={12} sx={{ mt: 3, ml: 5 }} align="left">
               <Card sx={{ maxWidth: 275 }}>
-                <CardContent align="center">
+                <CardContent align="center" sx={{ mt: 3 }}>
                   <Typography variant="h5" component="div">
-                    Add New Game
+                    Log New Game
                   </Typography>
                 </CardContent>
                 <CardContent align="center">
                   <Button size="small" align="right" onClick={handleAddGame}>
-                    Add Game
+                    Add
                   </Button>
                 </CardContent>
               </Card>
@@ -67,11 +72,15 @@ const Home = ({ user, setUser }) => {
         </div>
       ) : !clickFind && addNew ? (
         <div>
-          <GameContainer user={user} userGames={userGames} />
+          <GameContainer
+            user={user}
+            userGames={userGames}
+            setClickFind={setClickFind}
+          />
         </div>
       ) : clickFind && !addNew ? (
         <div>
-          <AddNewGame user={user} />
+          <AddNewGame user={user} setAddNew={setAddNew} />
         </div>
       ) : null}
     </div>
