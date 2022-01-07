@@ -42,7 +42,7 @@ const App = () => {
         <HeaderNonUser />
         <Switch>
           <Route exact path="/signup">
-            <SignUp />
+            <SignUp setUser={setUser}/>
           </Route>
           <Route exact path="/">
             <Login setUser={setUser} />

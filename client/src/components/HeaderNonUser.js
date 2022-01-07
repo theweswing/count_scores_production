@@ -23,7 +23,7 @@ const HeaderNonUser = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
+            <Button sx={{ my: 2, color: "white", display: "block" }} href="/">
               Login
             </Button>
           </Box>

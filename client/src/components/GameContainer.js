@@ -1,7 +1,7 @@
 import { useState } from "react";
 import GameCard from "./GameCard";
 import MatchContainer from "./MatchContainer";
-import { Button, Box, Grid } from "@mui/material";
+import { Button, Box, Grid, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const GameContainer = ({ user, userGames, setClickFind }) => {
@@ -24,7 +24,25 @@ const GameContainer = ({ user, userGames, setClickFind }) => {
     }
   });
 
-  if (selectedGame == "") {
+  if(userGames.length === 0){
+    return (
+      <Box
+      container
+      noValidate
+      sx={{ mt: 3 }}
+      style={{ justifyContent: "center" }}
+    >
+      <Grid item xs={12} sx={{ mt: 3 }} align="center">
+    <Typography component="h1" variant="h4">
+    You haven't played any games yet!
+  </Typography>
+  <Typography component="h1" variant="h4">
+    Go to "Log New Game" next time you play one and save the results!
+  </Typography>
+  </Grid>
+  </Box>)
+  } 
+  else if (selectedGame == "") {
     return (
       <Box
         container
@@ -45,7 +63,8 @@ const GameContainer = ({ user, userGames, setClickFind }) => {
         </Grid>
       </Box>
     );
-  } else {
+  }
+  else {
     return (
       <MatchContainer
         selectedGame={selectedGame}

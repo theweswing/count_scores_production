@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const SignUp = () => {
+const SignUp = ({setUser}) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -70,7 +70,9 @@ const SignUp = () => {
         body: JSON.stringify(user),
       }).then((res) => {
         if (res.ok) {
-          res.json().then((data) => console.log(data));
+          res.json().then((newUser) => {
+            console.log(newUser)
+            alert(`You have sucessfully signed up with email ${newUser.email}. Log in and make em count!`)});
         } else {
           res.json().then((errors) => console.log(errors));
         }

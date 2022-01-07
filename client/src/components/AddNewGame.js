@@ -33,10 +33,10 @@ const AddNewGame = ({ user, setAddNew }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleGameInput(gameInput);
+    handleGameInput(e, gameInput);
   };
 
-  const handleFormReset = () => {
+  const handleFormReset = (e) => {
     setGameInput("");
     setDateInput("");
     setNewMatch({
@@ -50,13 +50,14 @@ const AddNewGame = ({ user, setAddNew }) => {
         score: null,
         is_winner: false,
         name: `${user.first_name} ${user.last_name}`,
-        email: user.email,
+        email: "",
       },
     ]);
     setAllPlayerEmails([user.email]);
+    e.target.reset()
   };
 
-  const handleMatch = (game) => {
+  const handleMatch = (e, game) => {
     let newMatchEntry = { ...newMatch, game_id: game.id, date: dateInput };
     fetch("/matches", {
       method: "POST",
@@ -68,7 +69,7 @@ const AddNewGame = ({ user, setAddNew }) => {
       if (res.ok) {
         res.json().then((matchInDB) => {
           console.log(`Match Added To DB: ${JSON.stringify(matchInDB)}`);
-          handlePlayerSubmit(matchInDB);
+          handlePlayerSubmit(e, matchInDB);
         });
       } else {
         res.json().then((errors) => console.log(errors));
@@ -76,7 +77,7 @@ const AddNewGame = ({ user, setAddNew }) => {
     });
   };
 
-  const handlePlayerSubmit = (match) => {
+  const handlePlayerSubmit = (e, match) => {
     comparePlayerEmails();
     let playersForEntry = [...allPlayers];
     let ceiling = playersForEntry.length;
@@ -110,14 +111,14 @@ const AddNewGame = ({ user, setAddNew }) => {
             .then((errors) => console.log(`${preparedEntry.name} : ${errors}`));
         }
         if ((counter = ceiling)) {
-          handleFormReset();
+          handleFormReset(e);
         }
         counter = counter + 1;
       });
     });
   };
 
-  const handleGameInput = (input) => {
+  const handleGameInput = (e, input) => {
     let inputComparison = input.toLowerCase();
     let gameInDB = false;
     let gameForEntry = false;
@@ -148,7 +149,7 @@ const AddNewGame = ({ user, setAddNew }) => {
               game_id: gameForEntry.id,
               date: dateInput,
             });
-            handleMatch(gameForEntry);
+            handleMatch(e, gameForEntry);
           });
         } else {
           res.json().then((errors) => console.log(errors));
@@ -158,7 +159,7 @@ const AddNewGame = ({ user, setAddNew }) => {
     if (gameInDB === true) {
       console.log(`Game For Entry: ${JSON.stringify(gameForEntry)}`);
       setNewMatch({ ...newMatch, game_id: gameForEntry.id, date: dateInput });
-      handleMatch(gameForEntry);
+      handleMatch(e, gameForEntry);
     }
   };
 
