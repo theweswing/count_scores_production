@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const SignUp = ({setUser}) => {
+const SignUp = ({ setUser }) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -61,7 +61,6 @@ const SignUp = ({setUser}) => {
         password,
       };
 
-
       fetch("/signup", {
         method: "POST",
         headers: {
@@ -71,8 +70,11 @@ const SignUp = ({setUser}) => {
       }).then((res) => {
         if (res.ok) {
           res.json().then((newUser) => {
-            console.log(newUser)
-            alert(`You have sucessfully signed up with email ${newUser.email}. Log in and make em count!`)});
+            console.log(newUser);
+            alert(
+              `You have sucessfully signed up with email ${newUser.email}. Log in and make em count!`
+            );
+          });
         } else {
           res.json().then((errors) => console.log(errors));
         }
@@ -101,7 +103,7 @@ const SignUp = ({setUser}) => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">

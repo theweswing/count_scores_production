@@ -24,7 +24,7 @@ const Header = ({ setUser, setClickFind, setAddNew }) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ p: 2 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -34,7 +34,7 @@ const Header = ({ setUser, setClickFind, setAddNew }) => {
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             onClick={goHome}
           >
-            Score Counter
+            CountScores
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 
 const HeaderNonUser = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ p: 2 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -18,7 +18,7 @@ const HeaderNonUser = () => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              Score Counter
+              CountScores
             </Typography>
           </Box>
 
