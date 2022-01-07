@@ -238,7 +238,7 @@ const AddNewGame = ({ user }) => {
     const displayedPlayers = [...allPlayers].map((givenPlayer) => {
         counter = counter + 1;
       return (
-        <>
+        <div key={`player${counter}tracker`}>
           <Grid item xs={12}>
             <TextField
               required
@@ -251,18 +251,18 @@ const AddNewGame = ({ user }) => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} key={`player${counter}email`}>
             <TextField
               fullWidth
-              autoComplete={`player${counter}name`}
-              id={`player${counter}name`}
+              autoComplete={`player${counter}email`}
+              id={`player${counter}email`}
               label={`Player ${counter} Email (Link score to a friend's account!)`}
               name={`${counter - 1}`}
               onChange={handlePlayerEmail}
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} key={`player${counter}score`}>
             <TextField
               fullWidth
               autoComplete={`player${counter}score`}
@@ -273,9 +273,9 @@ const AddNewGame = ({ user }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormControlLabel onClick={handlePlayerWin}name={`${counter - 1}`}control={<Checkbox />} label={`👑  Player ${counter} Wins 👑`} />
+            <FormControlLabel key={`player${counter}wins`} onClick={handlePlayerWin}name={`${counter - 1}`}control={<Checkbox />} label={`👑  Player ${counter} Wins 👑`} />
           </Grid>
-        </>
+        </div>
       );
       });
     return displayedPlayers;
@@ -324,12 +324,11 @@ const AddNewGame = ({ user }) => {
                     onChange={(e) => setDateInput(e.target.value)}
                   />
                 </Grid>
-
                 {spawnPlayers()}
 
                 <Grid item xs={6}>
                   <Button
-                    small
+                    size="small"
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     onClick={addPlayer}
@@ -340,7 +339,7 @@ const AddNewGame = ({ user }) => {
 
                 <Grid item xs={6}>
                   <Button
-                    small
+                    size="small"
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     onClick={removePlayer}
