@@ -90,6 +90,7 @@ const AddNewGame = ({ user, setAddNew }) => {
         score: givenPlayer.score,
         is_winner: givenPlayer.is_winner,
         name: givenPlayer.name,
+        email: givenPlayer.email
       };
       console.log(JSON.stringify(preparedEntry, null, 4));
       fetch("/players", {

@@ -5,6 +5,18 @@ class UsersController < ApplicationController
   # skip_before_action :authorize, only: :create
   def create
     new_user = User.create!(user_params)
+    players = Player.all
+    comparison_email = new_user[:email].downcase
+    players.each do |player_instance|
+      if player_instance[:email]
+        instance_comparison_email = player_instance[:email].downcase
+        if instance_comparison_email == comparison_email
+          player_instance[:user_id] = new_user.id
+          new_user.players << player_instance
+          byebug
+        end
+      end
+    end
     render json: new_user, status: :created
   end
 

@@ -58,7 +58,7 @@ const SignUp = ({ setUser }) => {
         last_name: lastname,
         email,
         username,
-        password,
+        password
       };
 
       fetch("/signup", {

@@ -31,9 +31,11 @@ With CountScores, save the results of any game you ever play. Add your friends, 
 
 1. Drawing from a database of preexisting games
 
-2. Upon registration, new user is populated by any previous games played tied to their email address
+2. When logging a game, confirmation that you have entered the email of an exiting user
 
-3. Play more games, get more stats, people.
+3. Feature for adding friends, seeing friends' stats, seeing games played specifically against a given friend, etc.
+
+4. Play more games, get more stats, people.
 
 ## Contributors
 
